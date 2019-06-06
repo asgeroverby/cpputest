@@ -29,7 +29,6 @@
 #include "CppUTestExt/MockNamedValue.h"
 #include "CppUTest/PlatformSpecificFunctions.h"
 
-#include <cstring>
 
 MockNamedValueComparatorsAndCopiersRepository* MockNamedValue::defaultRepository_ = NULLPTR;
 const double MockNamedValue::defaultDoubleTolerance = 0.005;
@@ -140,7 +139,7 @@ void MockNamedValue::copyValue(const void* value, size_t size)
 	if (membuf_ == NULLPTR) {
 		membuf_ = new char[size];
 	}
-	memcpy(membuf_, value, size);
+	PlatformSpecificMemCpy(membuf_, value, size);
 	value_.constPointerValue_ = (const void*) membuf_;
 	size_ = size;
 }
