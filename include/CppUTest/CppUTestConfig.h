@@ -123,6 +123,15 @@
   #define _check_format_(type, format_parameter, other_parameters) /* type, format_parameter, other_parameters */
 #endif
 
+/* Backward-compatible aliases used across older source files. */
+#ifndef __no_return__
+  #define __no_return__ _no_return_
+#endif
+
+#ifndef __check_format__
+  #define __check_format__ _check_format_
+#endif
+
 #if defined(__cplusplus) && __cplusplus >= 201103L
     #define DEFAULT_COPY_CONSTRUCTOR(classname) classname(const classname &) = default;
 #else
@@ -361,6 +370,8 @@ typedef struct
     #define _override
     #define NULLPTR NULL
   #endif
+#else
+  #define NULLPTR NULL
 #endif
 
 #ifdef __cplusplus

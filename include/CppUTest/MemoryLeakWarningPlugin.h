@@ -51,7 +51,7 @@ public:
     virtual const char* FinalReport(int toBeDeletedLeaks = 0);
 
     void ignoreAllLeaksInTest();
-    void expectLeaksInTest(int n);
+    void expectLeaksInTest(size_t n);
 
     void destroyGlobalDetectorAndTurnOffMemoryLeakDetectionInDestructor(bool des);
 
@@ -69,6 +69,9 @@ public:
     static void turnOnThreadSafeNewDeleteOverloads();
     static bool areNewDeleteOverloaded();
 private:
+    static void saveAndDisableNewDeleteOverloads();
+    static void restoreNewDeleteOverloads();
+
     MemoryLeakDetector* memLeakDetector_;
     bool ignoreAllWarnings_;
     bool destroyGlobalDetectorAndTurnOfMemoryLeakDetectionInDestructor_;
@@ -78,8 +81,8 @@ private:
     static MemoryLeakWarningPlugin* firstPlugin_;
 };
 
-extern void* cpputest_malloc_location_with_leak_detection(size_t size, const char* file, int line);
-extern void* cpputest_realloc_location_with_leak_detection(void* memory, size_t size, const char* file, int line);
-extern void cpputest_free_location_with_leak_detection(void* buffer, const char* file, int line);
+extern void* cpputest_malloc_location_with_leak_detection(size_t size, const char* file, size_t line);
+extern void* cpputest_realloc_location_with_leak_detection(void* memory, size_t size, const char* file, size_t line);
+extern void cpputest_free_location_with_leak_detection(void* buffer, const char* file, size_t line);
 
 #endif

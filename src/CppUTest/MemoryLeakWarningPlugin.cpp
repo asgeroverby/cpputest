@@ -446,7 +446,7 @@ void MemoryLeakWarningPlugin::turnOffNewDeleteOverloads()
 #endif
 }
 
-void MemoryLeakWarningPlugin::turnOnDefaultNotThreadSafeNewDeleteOverloads()
+void MemoryLeakWarningPlugin::turnOnNewDeleteOverloads()
 {
 #if CPPUTEST_USE_MEM_LEAK_DETECTION
     operator_new_fptr = mem_leak_operator_new;
@@ -655,10 +655,10 @@ void MemoryLeakWarningPlugin::postTestAction(UtestShell& test, TestResult& resul
     expectedLeaks_ = 0;
 }
 
-const char* MemoryLeakWarningPlugin::FinalReport(size_t toBeDeletedLeaks)
+const char* MemoryLeakWarningPlugin::FinalReport(int toBeDeletedLeaks)
 {
     size_t leaks = memLeakDetector_->totalMemoryLeaks(mem_leak_period_enabled);
-    if (leaks != toBeDeletedLeaks) return memLeakDetector_->report(mem_leak_period_enabled);
+    if (leaks != (size_t)toBeDeletedLeaks) return memLeakDetector_->report(mem_leak_period_enabled);
     return "";
 }
 
